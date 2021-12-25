@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/robust
+robust.so
+robust.dylib
+robust.dll
+robust.a
+robust.lib
+robust-test-*
+*.exe
+*.o
+*.obj
+*.lst
+librobust.a
