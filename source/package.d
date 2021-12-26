@@ -4,6 +4,12 @@ import std.math : abs;
 import std.traits : isFloatingPoint;
 import std.typecons : reverse, tuple;
 
+
+nothrow:
+@nogc:
+pure:
+@safe:
+
 ///
 struct Coord(T)
     if (isFloatingPoint!T)
@@ -92,7 +98,7 @@ double orient2dadapt(Coord!double pa, Coord!double pb, Coord!double pc, double d
     const detright = twoProduct(acy, bcx);
 
     const bt = twoTwoDiff(detleft.expand, detright.expand);
-    const B = [bt[3], bt[2], bt[1], bt[0]];
+    const double[4] B = [bt[3], bt[2], bt[1], bt[0]];
 
     auto det = estimate(B);
     const errbound_b = CCWERRBOUND_B * detsum;
@@ -116,7 +122,7 @@ double orient2dadapt(Coord!double pa, Coord!double pb, Coord!double pc, double d
     const s1 = twoProduct(acxtail, bcy);
     const t1 = twoProduct(acytail, bcx);
     const u1 = twoTwoDiff(s1.expand, t1.expand);
-    const U1 = [u1[3], u1[2], u1[1], u1[0]];
+    const double[4] U1 = [u1[3], u1[2], u1[1], u1[0]];
 
     double[8] C1 = [0.0, 0.0, 0.0, 0.0,
                     0.0, 0.0, 0.0, 0.0];
@@ -125,7 +131,7 @@ double orient2dadapt(Coord!double pa, Coord!double pb, Coord!double pc, double d
     const s2 = twoProduct(acx, bcytail);
     const t2 = twoProduct(acy, bcxtail);
     const u2 = twoTwoDiff(s2.expand, t2.expand);
-    const U2 = [u2[3], u2[2], u2[1], u2[0]];
+    const double[4] U2 = [u2[3], u2[2], u2[1], u2[0]];
 
     double[12] C2 = [0.0, 0.0, 0.0, 0.0,
                      0.0, 0.0, 0.0, 0.0,
@@ -135,7 +141,7 @@ double orient2dadapt(Coord!double pa, Coord!double pb, Coord!double pc, double d
     const s3 = twoProduct(acxtail, bcytail);
     const t3 = twoProduct(acytail, bcxtail);
     const u3 = twoTwoDiff(s3.expand, t3.expand);
-    const U3 = [u3[3], u3[2], u3[1], u3[0]];
+    const double[4] U3 = [u3[3], u3[2], u3[1], u3[0]];
     double[16] D = [0.0, 0.0, 0.0, 0.0,
                     0.0, 0.0, 0.0, 0.0,
                     0.0, 0.0, 0.0, 0.0,
