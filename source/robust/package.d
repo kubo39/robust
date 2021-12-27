@@ -20,16 +20,17 @@ struct Coord(T)
 
 
 // These values are precomputed from the "exactinit" method of the c-source code,
-// from https://github.com/georust/robust/blob/6b482661d48207ebb0ff1c4bdc74aad5c6fc0387/src/lib.rs
-enum double SPLITTER = 134_217_729;
-enum double EPSILON = 0.000_000_000_000_000_111_022_302_462_515_65;
-enum double RESULTERRBOUND = (3.0 + 8.0 * EPSILON) * EPSILON;
-enum double CCWERRBOUND_A = (3.0 + 16.0 * EPSILON) * EPSILON;
-enum double CCWERRBOUND_B = (2.0 + 12.0 * EPSILON) * EPSILON;
-enum double CCWERRBOUND_C = (9.0 + 64.0 * EPSILON) * EPSILON * EPSILON;
-enum double ICCERRBOUND_A = (10.0 + 96.0 * EPSILON) * EPSILON;
-enum double ICCERRBOUND_B = (4.0 + 48.0 * EPSILON) * EPSILON;
-enum double ICCERRBOUND_C = (44.0 + 576.0 * EPSILON) * EPSILON * EPSILON;
+// except epsilon.
+// https://en.wikipedia.org/wiki/Machine_epsilon
+private enum double SPLITTER = 134_217_729;
+private enum double EPSILON = double.epsilon;
+private enum double RESULTERRBOUND = (3.0 + 8.0 * EPSILON) * EPSILON;
+private enum double CCWERRBOUND_A = (3.0 + 16.0 * EPSILON) * EPSILON;
+private enum double CCWERRBOUND_B = (2.0 + 12.0 * EPSILON) * EPSILON;
+private enum double CCWERRBOUND_C = (9.0 + 64.0 * EPSILON) * EPSILON * EPSILON;
+private enum double ICCERRBOUND_A = (10.0 + 96.0 * EPSILON) * EPSILON;
+private enum double ICCERRBOUND_B = (4.0 + 48.0 * EPSILON) * EPSILON;
+private enum double ICCERRBOUND_C = (44.0 + 576.0 * EPSILON) * EPSILON * EPSILON;
 
 
 /// Returns a positive value if the coordinates `pa`, `pb`, and `pc` occur in counterclockwise order
