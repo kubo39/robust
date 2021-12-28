@@ -1,7 +1,6 @@
 module robust;
 
 import std.math : abs;
-import std.traits : isFloatingPoint;
 import std.typecons : tuple;
 
 
