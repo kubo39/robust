@@ -17,11 +17,9 @@ struct Coord
 }
 
 
-// These values are precomputed from the "exactinit" method of the c-source code,
-// except epsilon.
-// https://en.wikipedia.org/wiki/Machine_epsilon
+// These values are precomputed from the "exactinit" method of the c-source code.
 private enum double SPLITTER = 134_217_729;
-private enum double EPSILON = double.epsilon;
+private enum double EPSILON = double.epsilon / 2;  // from https://github.com/danshapero/predicates/commit/2a1ced5f61842190d255cb674769f3f9fadcbb25
 private enum double RESULTERRBOUND = (3.0 + 8.0 * EPSILON) * EPSILON;
 private enum double CCWERRBOUND_A = (3.0 + 16.0 * EPSILON) * EPSILON;
 private enum double CCWERRBOUND_B = (2.0 + 12.0 * EPSILON) * EPSILON;
