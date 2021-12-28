@@ -11,11 +11,10 @@ pure:
 @safe:
 
 ///
-struct Coord(T)
-    if (isFloatingPoint!T)
+struct Coord
 {
-    T x;
-    T y;
+    double x;
+    double y;
 }
 
 
@@ -37,12 +36,8 @@ private enum double ICCERRBOUND_C = (44.0 + 576.0 * EPSILON) * EPSILON * EPSILON
 /// (pc lies to the **left** of the directed line defined by coordinates pa and pb).
 /// Returns a negative value if they occur in clockwise order (`pc` lies to the **right** of the directed line `pa, pb`).
 /// Returns `0` if they are **collinear**.
-double orient2d(T)(Coord!T _pa, Coord!T _pb, Coord!T _pc)
-    if (isFloatingPoint!T)
+double orient2d(Coord pa, Coord pb, Coord pc)
 {
-    const Coord!double pa = { x: cast(double)_pa.x, y: cast(double)_pa.y };
-    const Coord!double pb = { x: cast(double)_pb.x, y: cast(double)_pb.y };
-    const Coord!double pc = { x: cast(double)_pc.x, y: cast(double)_pc.y };
     const detleft = (pa.x - pc.x) * (pb.y - pc.y);
     const detright = (pa.y - pc.y) * (pb.x - pc.x);
     const det = detleft - detright;
@@ -88,7 +83,7 @@ double orient2d(T)(Coord!T _pa, Coord!T _pb, Coord!T _pc)
 private:
 
 ///
-double orient2dadapt(Coord!double pa, Coord!double pb, Coord!double pc, double detsum)
+double orient2dadapt(Coord pa, Coord pb, Coord pc, double detsum)
 {
     const acx = pa.x - pc.x;
     const bcx = pb.x - pc.x;
@@ -371,26 +366,13 @@ unittest
 {
     import std.math : sgn;
 
-    const Coord!double from = { x: -1.0, y: -1.0 };
-    const Coord!double to = { x: 1.0, y: 1.0 };
-    const Coord!double p1 = {
-    x: double.min_normal,
-    y: double.min_normal
-    };
-    const Coord!double p2 = {
-    x: -double.min_normal,
-    y: -double.min_normal
-    };
-    const Coord!double p3 = {
-    x: -double.min_normal,
-    y: double.min_normal
-    };
-    const Coord!double p4 = {
-    x: double.min_normal,
-    y: -double.min_normal
-    };
-    foreach (tup; [tuple(p1, 0.0), tuple(p2, 0.0),
-                   tuple(p3, 1.0), tuple(p4, -1.0)])
+    const Coord from = { x: -1.0, y: -1.0 };
+    const Coord to = { x: 1.0, y: 1.0 };
+    const Coord p1 = { x: double.min_normal, y: double.min_normal };
+    const Coord p2 = { x: -double.min_normal, y: -double.min_normal };
+    const Coord p3 = { x: -double.min_normal, y: double.min_normal };
+    const Coord p4 = { x: double.min_normal, y: -double.min_normal };
+    foreach (tup; [tuple(p1, 0.0), tuple(p2, 0.0), tuple(p3, 1.0), tuple(p4, -1.0)])
     {
         const det = orient2d(from, to, tup[0]);
         assert(det == tup[1] || det.sgn == tup[1].sgn);
